@@ -1,0 +1,40 @@
+{
+  "name": "yargs-interactive",
+  "version": "0.0.0-semantic-release",
+  "description": "Build command line tools without worring to parse arguments or ask them.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "yargs-interactive": "./bin/yargs-interactive.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanovazquez/yargs-interactive.git"
+  },
+  "keywords": [
+    "cli",
+    "arguments",
+    "args",
+    "interactive",
+    "prompt",
+    "yargs",
+    "inquirer"
+  ],
+  "author": "nanovazquez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nanovazquez/yargs-interactive/issues"
+  },
+  "homepage": "https://github.com/nanovazquez/yargs-interactive#readme",
+  "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-config-google": "^0.9.1",
+    "nyc": "^11.3.0"
+  },
+  "dependencies": {
+    "inquirer": "^4.0.0",
+    "yargs": "^10.0.3"
+  }
+}
