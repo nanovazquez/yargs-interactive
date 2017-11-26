@@ -2,9 +2,11 @@
   "extends": ["eslint:recommended", "google"],
   "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "rules": {
-    "max-len": [2, 200]
+    "max-len": [2, 200],
+    "require-jsdoc": "off"
   }
 }

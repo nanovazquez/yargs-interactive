@@ -11,20 +11,25 @@ const yargsInteractiveOptions = {
 };
 
 // Set up yargs options
-let yargsConfig = yargs
-  .options(yargsInteractiveOptions);
+let yargsInteractive = (processArgs, cwd) => {
+  const yargsConfig = yargs(processArgs, cwd)
+    .options(yargsInteractiveOptions);
 
-// Add interactive functionality
-yargsConfig.interactive = (options = {}) => {
-  // Run yargs and get the requested arguments
-  const argv = yargsConfig
-    .options(options)
-    .argv;
+  // Add interactive functionality
+  yargsConfig.interactive = (options = {}) => {
+    // Run yargs and get the requested arguments
+    const argv = yargsConfig
+      .options(options)
+      .argv;
 
-  // Check if we should get the values from the interactive mode
-  return argv.interactive
-    ? interactiveMode(options).then((result) => Object.assign({}, argv, result))
-    : Promise.resolve(argv);
+    // Check if we should get the values from the interactive mode
+    return argv.interactive
+      ? interactiveMode(options).then((result) => Object.assign({}, argv, result))
+      : Promise.resolve(argv);
+  };
+
+  return yargsConfig;
 };
 
-module.exports = yargsConfig;
+
+module.exports = yargsInteractive;

@@ -1,6 +1,8 @@
 .npm
 .DS_Store
+.nyc_output
 node_modules
 build
+coverage
 dist
 lib

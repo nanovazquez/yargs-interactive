@@ -4,7 +4,8 @@
   "description": "Build command line tools without worring to parse arguments or ask them.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc --reporter=text mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "bin": {
     "yargs-interactive": "./bin/yargs-interactive.js"
@@ -29,8 +30,10 @@
   },
   "homepage": "https://github.com/nanovazquez/yargs-interactive#readme",
   "devDependencies": {
+    "coveralls": "^3.0.0",
     "eslint": "^4.11.0",
     "eslint-config-google": "^0.9.1",
+    "mocha": "^4.0.1",
     "nyc": "^11.3.0"
   },
   "dependencies": {
