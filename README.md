@@ -5,6 +5,8 @@ Interactive (prompt) support for [yargs](https://github.com/yargs/yargs), based 
 
 ![Yargs Interactive](./yargs-interactive-logo.png)
 
+This tool helps you to build command line tools without worring to parse arguments or ask them.
+
 ## Installation
 
 ```
