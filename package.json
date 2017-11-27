@@ -4,8 +4,9 @@
   "description": "Build command line tools without worring to parse arguments or ask them.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "nyc --reporter=text mocha",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "bin": {
     "yargs-interactive": "./bin/yargs-interactive.js"
