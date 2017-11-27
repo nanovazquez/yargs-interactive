@@ -2,6 +2,7 @@
 
 const yargs = require('yargs');
 const interactiveMode = require('../src/interactive-mode');
+const filterObject = require('../src/filter-object');
 
 const yargsInteractiveOptions = {
   interactive: {
@@ -11,7 +12,7 @@ const yargsInteractiveOptions = {
 };
 
 // Set up yargs options
-let yargsInteractive = (processArgs, cwd) => {
+let yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
   const yargsConfig = yargs(processArgs, cwd);
 
   // Add interactive functionality
@@ -22,9 +23,12 @@ let yargsInteractive = (processArgs, cwd) => {
       .options(options)
       .argv;
 
+    // Remove options with prompt property explicitly set to false
+    const interactiveOptions = filterObject(options, (item) => item.prompt !== false);
+
     // Check if we should get the values from the interactive mode
     return argv.interactive
-      ? interactiveMode(options).then((result) => Object.assign({}, argv, result))
+      ? interactiveMode(interactiveOptions).then((result) => Object.assign({}, argv, result))
       : Promise.resolve(argv);
   };
 
