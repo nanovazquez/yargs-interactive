@@ -1,13 +1,8 @@
 # Yargs Interactive [![Build Status](https://travis-ci.org/nanovazquez/yargs-interactive.svg?branch=master)](https://travis-ci.org/nanovazquez/yargs-interactive) [![Coverage Status](https://coveralls.io/repos/github/nanovazquez/yargs-interactive/badge.svg)](https://coveralls.io/github/nanovazquez/yargs-interactive)
 
-Interactive (prompt) support for [yargs](https://github.com/yargs/yargs), based on [inquirer](https://github.com/SBoudrias/Inquirer.js/). Useful for using the same CLI for both for humans and non humans (like CI tools). Also supports mixed mode :)
+Interactive (prompt) support for [yargs](https://github.com/yargs/yargs), based on [inquirer](https://github.com/SBoudrias/Inquirer.js/). Useful for using the same CLI for both for humans and non-humans (like CI tools). Also supports mixed mode (yay!).
 
 ![Yargs Interactive](./yargs-interactive-logo.png)
-
-It supports the following use cases
-* [Full interactive (prompt questions with default values)](#full-interactive-prompt-questions-with-default-values)
-* [Prompt just some options (mixed mode)](#prompt-just-some-options-mixed-mode)
-* [No prompt at all (ye olde yargs)](#no-prompt-at-all-ye-olde-yargs)
 
 ## Installation
 
@@ -23,15 +18,22 @@ const yargsInteractive = require('yargs-interactive');
 
 yargsInteractive
   .usage('$0 <command> [args]')
-  .interactive(/* pass options here */)
+  .interactive(/* pass options here, like */)
   .then((result) => {
-      // Use your arguments here
+      // Terminal arguments will be in the result
     });
 });
 ```
 Finally, call your CLI from the terminal. You can see some example CLIs using this library [here](./examples/basic.js).
 
-## Full interactive (prompt questions with default values)
+## Usage
+
+It supports the following use cases
+* [Full interactive (prompt questions with default values)](#full-interactive-prompt-questions-with-default-values)
+* [Prompt just some options (mixed mode)](#prompt-just-some-options-mixed-mode)
+* [No prompt at all (ye olde yargs)](#no-prompt-at-all-ye-olde-yargs)
+
+### Full interactive (prompt questions with default values)
 
 **my-cli.js**
 ```js
@@ -67,11 +69,11 @@ yargsInteractive()
 
 > **Note:** See more usage examples [here](./examples).
 
-### What type of prompts are supported
+#### What type of prompts are supported
 
 It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
 
-## Prompt just some options (mixed mode)
+### Prompt just some options (mixed mode)
 
 You can opt-out options from interactive mode by setting the `prompt` property to `false`.
 
@@ -112,7 +114,7 @@ yargsInteractive()
 
 > **Note:** See more usage examples [here](./examples).
 
-## No prompt at all (ye olde yargs)
+### No prompt at all (ye olde yargs)
 
 **my-cli.js**
 ```js
