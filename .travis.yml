@@ -1,0 +1,19 @@
+
+sudo: false
+
+language: node_js
+
+node_js:
+  - 8
+  - 6
+
+cache:
+  directories:
+    - node_modules
+
+script:
+  - npm run lint
+  - npm run test -- test/yargs-interactive.unit.test.js
+
+after_success:
+  - npm run coveralls

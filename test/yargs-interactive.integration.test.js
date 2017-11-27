@@ -37,12 +37,12 @@ describe('yargsInteractive', () => {
         setTimeout(() => {
           robot.typeString(expectedResult.directory);
           robot.keyTap('enter');
-        }, 0);
+        }, 50);
 
         setTimeout(() => {
           robot.typeString(expectedResult.projectName);
           robot.keyTap('enter');
-        }, 50);
+        }, 100);
 
         return promise;
       });
