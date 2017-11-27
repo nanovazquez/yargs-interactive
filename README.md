@@ -17,7 +17,7 @@ npm install -S yargs-interactive
 
 Then, add this code in your CLI code to get all the arguments parsed:
 
-```
+```js
 #!/usr/bin/env node
 const yargsInteractive = require('yargs-interactive');
 
@@ -29,11 +29,11 @@ yargsInteractive
     });
 });
 ```
-
-You can see some example CLIs using this library [here](./examples/basic.js).
+Finally, call your CLI from the terminal. You can see some example CLIs using this library [here](./examples/basic.js).
 
 ## Full interactive (prompt questions with default values)
 
+**my-cli.js**
 ```js
 const yargsInteractive = require('../bin/yargs-interactive');
 
@@ -62,7 +62,7 @@ yargsInteractive()
 
 **Usage in terminal**
 ```
-➜ node <YOUR-CLI-NAME>.js --interactive
+➜ node my-cli.js --interactive
 ```
 
 > **Note:** See more usage examples [here](./examples).
@@ -75,6 +75,7 @@ It provides all prompt types supported by [Inquirer](https://github.com/SBoudria
 
 You can opt-out options from interactive mode by setting the `prompt` property to `false`.
 
+**my-cli.js**
 ```js
 const yargsInteractive = require('../bin/yargs-interactive');
 
@@ -106,14 +107,14 @@ yargsInteractive()
 
 **Usage in terminal**
 ```
-➜ node <YOUR-CLI-NAME>.js --name='Johh' --interactive
+➜ node my-cli.js --name='Johh' --interactive
 ```
 
 > **Note:** See more usage examples [here](./examples).
 
 ## No prompt at all (ye olde yargs)
 
-**<YOUR-CLI-NAME>.js**
+**my-cli.js**
 ```js
 const yargsInteractive = require('../bin/yargs-interactive');
 
@@ -143,7 +144,7 @@ yargsInteractive()
 
 **Usage in terminal**
 ```
-➜ node <YOUR-CLI-NAME>.js --name='Johh' --likesPizza
+➜ node my-cli.js --name='Johh' --likesPizza
 ```
 
 > **Note:** See more usage examples [here](./examples).

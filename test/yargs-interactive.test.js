@@ -1,16 +1,26 @@
-const yargsInteractive = require('../bin/yargs-interactive');
 const assert = require('assert');
+const proxyquire = require('proxyquire');
+const sinon = require('sinon');
 
-function runBasicValidations(result) {
-  assert.deepEqual(!!result._, true, '_');
+function checkProperties(result, expectedValues = {}) {
+  assert.equal(!!result._, true, '_');
   assert.equal(!!result.$0, true, '$0');
-  assert.equal(result.version, false, 'version');
-  assert.equal(result.help, false, 'help');
-  assert.equal(result.interactive, false, 'interactive');
+  assert.equal(result.version, !!expectedValues.version, 'version');
+  assert.equal(result.help, !!expectedValues.help, 'help');
+  assert.equal(result.interactive, !!expectedValues.interactive, 'interactive');
 }
 
 describe('yargsInteractive', () => {
   let result;
+  let interactiveModeStub;
+  let yargsInteractive;
+
+  beforeEach(() => {
+    interactiveModeStub = sinon.stub().resolves({});
+    yargsInteractive = proxyquire('../bin/yargs-interactive', {
+      '../src/interactive-mode': interactiveModeStub,
+    });
+  });
 
   describe('with no interactive', () => {
     beforeEach(() => {
@@ -23,6 +33,10 @@ describe('yargsInteractive', () => {
 
     it('should not set interactive argument', () => {
       assert.equal(result.interactive, undefined, 'interactive');
+    });
+
+    it('should not call interactive mode', () => {
+      assert.equal(interactiveModeStub.called, false, 'interactive mode');
     });
   });
 
@@ -37,7 +51,7 @@ describe('yargsInteractive', () => {
     });
 
     it('should return yargs default properties', () => {
-      runBasicValidations(result);
+      checkProperties(result);
     });
   });
 
@@ -70,7 +84,7 @@ describe('yargsInteractive', () => {
       });
 
       it('should return yargs default properties', () => {
-        runBasicValidations(result);
+        checkProperties(result);
       });
 
       it('should return options with default values', () => {
@@ -82,6 +96,7 @@ describe('yargsInteractive', () => {
 
     describe('and parameters', () => {
       let expectedParameters;
+
       beforeEach(() => {
         expectedParameters = {directory: 'abc', projectName: 'def'};
         return yargsInteractive(Object.keys(expectedParameters).map((key) => `--${key}=${expectedParameters[key]}`))
@@ -93,13 +108,32 @@ describe('yargsInteractive', () => {
       });
 
       it('should return yargs default properties', () => {
-        runBasicValidations(result);
+        checkProperties(result);
       });
 
       it('should return options with values sent by parameter', () => {
         Object.keys(options).forEach((key) => {
           assert.equal(result[key], expectedParameters[key], key);
         });
+      });
+    });
+
+    describe('and interactive parameter', () => {
+      beforeEach(() => {
+        return yargsInteractive(`--interactive`)
+          .usage('$0 <command> [args]')
+          .version()
+          .help()
+          .interactive(options)
+          .then((output) => result = output);
+      });
+
+      it('should return yargs default properties', () => {
+        checkProperties(result, {interactive: true});
+      });
+
+      it('should call interactive mode', () => {
+        assert.equal(interactiveModeStub.called, true, 'interactive mode');
       });
     });
   });
