@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "test": "nyc --reporter=text mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "commitmsg": "validate-commit-msg"
+    "commitmsg": "validate-commit-msg",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "bin": {
     "yargs-interactive": "./bin/yargs-interactive.js"
