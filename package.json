@@ -10,6 +10,10 @@
   "bin": {
     "yargs-interactive": "./bin/yargs-interactive.js"
   },
+  "files": [
+    "bin",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nanovazquez/yargs-interactive.git"

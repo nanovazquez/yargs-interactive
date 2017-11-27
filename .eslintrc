@@ -7,6 +7,8 @@
   },
   "rules": {
     "max-len": [2, 200],
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "no-console": "off",
+    "comma-dangle": "off"
   }
 }
