@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "nyc --reporter=text mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "commitmsg": "validate-commit-msg"
   },
   "bin": {
     "yargs-interactive": "./bin/yargs-interactive.js"
@@ -38,9 +39,11 @@
     "coveralls": "^3.0.0",
     "eslint": "^4.11.0",
     "eslint-config-google": "^0.9.1",
+    "husky": "^0.14.3",
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",
-    "robotjs": "^0.4.7"
+    "robotjs": "^0.4.7",
+    "validate-commit-msg": "^2.14.0"
   },
   "dependencies": {
     "inquirer": "^4.0.0",
