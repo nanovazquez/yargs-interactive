@@ -12,13 +12,13 @@ const yargsInteractiveOptions = {
 
 // Set up yargs options
 let yargsInteractive = (processArgs, cwd) => {
-  const yargsConfig = yargs(processArgs, cwd)
-    .options(yargsInteractiveOptions);
+  const yargsConfig = yargs(processArgs, cwd);
 
   // Add interactive functionality
   yargsConfig.interactive = (options = {}) => {
     // Run yargs and get the requested arguments
     const argv = yargsConfig
+      .options(yargsInteractiveOptions)
       .options(options)
       .argv;
 

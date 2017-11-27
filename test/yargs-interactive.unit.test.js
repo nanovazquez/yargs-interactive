@@ -12,6 +12,20 @@ function runBasicValidations(result) {
 describe('yargsInteractive', () => {
   let result;
 
+  describe('with no interactive', () => {
+    beforeEach(() => {
+      result = yargsInteractive()
+        .usage('$0 <command> [args]')
+        .version()
+        .help()
+        .argv;
+    });
+
+    it('should not set interactive argument', () => {
+      assert.equal(result.interactive, undefined, 'interactive');
+    });
+  });
+
   describe('with no options', () => {
     beforeEach(() => {
       return yargsInteractive()
