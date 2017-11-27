@@ -19,7 +19,7 @@ Then, add this code in your CLI code to get all the arguments parsed:
 #!/usr/bin/env node
 const yargsInteractive = require('yargs-interactive');
 
-yargsInteractive
+yargsInteractive()
   .usage('$0 <command> [args]')
   .interactive(/* pass options here, like */)
   .then((result) => {
