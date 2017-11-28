@@ -23,11 +23,15 @@ yargsInteractive()
   .usage('$0 <command> [args]')
   .interactive(/* pass options here, like */)
   .then((result) => {
-      // Terminal arguments will be in the result
+      // Arguments will be in the result
+      // (e.g. result.name)
     });
 });
 ```
-Finally, call your CLI from the terminal. You can see some example CLIs using this library [here](./examples/basic.js).
+
+**What type of prompts are supported?** It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
+
+> **Note:** See more usage examples [in the examples folder](./examples).
 
 ## Usage
 
@@ -45,7 +49,7 @@ const yargsInteractive = require('yargs-interactive');
 const options = {
   name: {
     type: 'input',
-    name: 'nano',
+    default: 'nano',
     describe: 'Enter your name'
   },
   likesPizza: {
@@ -70,12 +74,6 @@ yargsInteractive()
 ➜ node my-cli.js --interactive
 ```
 
-> **Note:** See more usage examples [here](./examples).
-
-#### What type of prompts are supported
-
-It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
-
 ### Prompt just some options (mixed mode)
 
 You can opt-out options from interactive mode by setting the `prompt` property to `false`.
@@ -93,7 +91,7 @@ const options = {
   likesPizza: {
     type: 'confirm',
     default: false,
-    describe: 'Do you like pizza?'
+    describe: 'Do you like pizza?',
     prompt: false // because everyone likes pizza
   },
 };
@@ -114,8 +112,6 @@ yargsInteractive()
 ```
 ➜ node my-cli.js --name='Johh' --interactive
 ```
-
-> **Note:** See more usage examples [here](./examples).
 
 ### No prompt at all (ye olde yargs)
 
@@ -151,5 +147,3 @@ yargsInteractive()
 ```
 ➜ node my-cli.js --name='Johh' --likesPizza
 ```
-
-> **Note:** See more usage examples [here](./examples).
