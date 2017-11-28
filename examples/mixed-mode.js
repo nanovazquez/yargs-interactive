@@ -7,7 +7,7 @@
  * 3) The tool will prompt a question for the name but not for the likesPizza property (it will use the default value).
  */
 
-const yargsInteractive = require('../bin/yargs-interactive');
+const yargsInteractive = require('../src');
 
 const options = {
   name: {

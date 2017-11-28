@@ -17,8 +17,8 @@ describe('yargsInteractive', () => {
 
   beforeEach(() => {
     interactiveModeStub = sinon.stub().resolves({});
-    yargsInteractive = proxyquire('../bin/yargs-interactive', {
-      '../src/interactive-mode': interactiveModeStub,
+    yargsInteractive = proxyquire('../src/yargs-interactive', {
+      './interactive-mode': interactiveModeStub,
     });
   });
 

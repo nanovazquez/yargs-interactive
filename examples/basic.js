@@ -16,7 +16,7 @@
  *    The tool will prompt questions and will output your answers.
  */
 
-const yargsInteractive = require('../bin/yargs-interactive');
+const yargsInteractive = require('../src');
 
 const options = {
   name: {
