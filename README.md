@@ -40,7 +40,7 @@ It supports the following use cases
 
 **my-cli.js**
 ```js
-const yargsInteractive = require('../bin/yargs-interactive');
+const yargsInteractive = require('yargs-interactive');
 
 const options = {
   name: {
@@ -82,7 +82,7 @@ You can opt-out options from interactive mode by setting the `prompt` property t
 
 **my-cli.js**
 ```js
-const yargsInteractive = require('../bin/yargs-interactive');
+const yargsInteractive = require('yargs-interactive');
 
 const options = {
   name: {
@@ -121,7 +121,7 @@ yargsInteractive()
 
 **my-cli.js**
 ```js
-const yargsInteractive = require('../bin/yargs-interactive');
+const yargsInteractive = require('yargs-interactive');
 
 const options = {
   name: {

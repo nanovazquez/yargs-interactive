@@ -2,7 +2,8 @@
   "name": "yargs-interactive",
   "version": "0.0.0-semantic-release",
   "description": "Build command line tools without worring to parse arguments or ask them.",
-  "main": "index.js",
+  "main": "src/index.js",
+  "files": ["src"],
   "scripts": {
     "lint": "eslint .",
     "test": "nyc --reporter=text mocha",
@@ -10,13 +11,6 @@
     "commitmsg": "validate-commit-msg",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "bin": {
-    "yargs-interactive": "./bin/yargs-interactive.js"
-  },
-  "files": [
-    "bin",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nanovazquez/yargs-interactive.git"
@@ -36,6 +30,10 @@
     "url": "https://github.com/nanovazquez/yargs-interactive/issues"
   },
   "homepage": "https://github.com/nanovazquez/yargs-interactive#readme",
+  "dependencies": {
+    "inquirer": "^4.0.0",
+    "yargs": "^10.0.3"
+  },
   "devDependencies": {
     "coveralls": "^3.0.0",
     "eslint": "^4.11.0",
@@ -47,9 +45,5 @@
     "semantic-release": "^8.2.0",
     "sinon": "^4.1.2",
     "validate-commit-msg": "^2.14.0"
-  },
-  "dependencies": {
-    "inquirer": "^4.0.0",
-    "yargs": "^10.0.3"
   }
 }

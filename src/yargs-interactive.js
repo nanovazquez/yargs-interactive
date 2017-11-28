@@ -1,8 +1,6 @@
-#! /usr/bin/env node
-
 const yargs = require('yargs');
-const interactiveMode = require('../src/interactive-mode');
-const filterObject = require('../src/filter-object');
+const interactiveMode = require('./interactive-mode');
+const filterObject = require('./filter-object');
 
 const yargsInteractiveOptions = {
   interactive: {
