@@ -1,7 +1,7 @@
 {
   "name": "yargs-interactive",
   "version": "0.0.0-semantic-release",
-  "description": "Build command line tools without worring to parse arguments or ask them.",
+  "description": "Build interactive command line tools without worring to parse the arguments (or ask them).",
   "main": "src/index.js",
   "files": ["src"],
   "scripts": {
@@ -16,12 +16,12 @@
     "url": "git+https://github.com/nanovazquez/yargs-interactive.git"
   },
   "keywords": [
+    "yargs",
+    "interactive",
     "cli",
     "arguments",
     "args",
-    "interactive",
     "prompt",
-    "yargs",
     "inquirer"
   ],
   "author": "nanovazquez",
