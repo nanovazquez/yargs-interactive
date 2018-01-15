@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 
-module.exports = (defaultValues) => {
+module.exports = (defaultValues = {}) => {
   const prompt = inquirer.createPromptModule();
   const questions = Object.keys(defaultValues).map((key) => {
     const defaultValue = defaultValues[key];
@@ -12,6 +12,5 @@ module.exports = (defaultValues) => {
       choices: defaultValue.options,
     });
   });
-
   return prompt(questions);
 };
