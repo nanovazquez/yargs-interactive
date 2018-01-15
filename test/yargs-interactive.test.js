@@ -15,7 +15,7 @@ describe('yargsInteractive', () => {
   let interactiveModeStub;
   let yargsInteractive;
 
-  beforeEach(() => {
+  before(() => {
     interactiveModeStub = sinon.stub().resolves({});
     yargsInteractive = proxyquire('../src/yargs-interactive', {
       './interactive-mode': interactiveModeStub,
@@ -23,7 +23,7 @@ describe('yargsInteractive', () => {
   });
 
   describe('with no interactive', () => {
-    beforeEach(() => {
+    before(() => {
       result = yargsInteractive()
         .usage('$0 <command> [args]')
         .version()
@@ -41,7 +41,7 @@ describe('yargsInteractive', () => {
   });
 
   describe('with no options', () => {
-    beforeEach(() => {
+    before(() => {
       return yargsInteractive()
         .usage('$0 <command> [args]')
         .version()
@@ -58,7 +58,7 @@ describe('yargsInteractive', () => {
   describe('with options', () => {
     let options;
 
-    beforeEach(() => {
+    before(() => {
       options = {
         directory: {
           type: 'input',
@@ -74,7 +74,7 @@ describe('yargsInteractive', () => {
     });
 
     describe('and no parameters', () => {
-      beforeEach(() => {
+      before(() => {
         return yargsInteractive()
           .usage('$0 <command> [args]')
           .version()
@@ -97,7 +97,7 @@ describe('yargsInteractive', () => {
     describe('and parameters', () => {
       let expectedParameters;
 
-      beforeEach(() => {
+      before(() => {
         expectedParameters = {directory: 'abc', projectName: 'def'};
         return yargsInteractive(Object.keys(expectedParameters).map((key) => `--${key}=${expectedParameters[key]}`))
           .usage('$0 <command> [args]')
@@ -119,7 +119,7 @@ describe('yargsInteractive', () => {
     });
 
     describe('and interactive parameter', () => {
-      beforeEach(() => {
+      before(() => {
         return yargsInteractive(`--interactive`)
           .usage('$0 <command> [args]')
           .version()
