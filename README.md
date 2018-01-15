@@ -1,9 +1,9 @@
 # Yargs Interactive [![Build Status](https://travis-ci.org/nanovazquez/yargs-interactive.svg?branch=master)](https://travis-ci.org/nanovazquez/yargs-interactive) [![Coverage Status](https://coveralls.io/repos/github/nanovazquez/yargs-interactive/badge.svg)](https://coveralls.io/github/nanovazquez/yargs-interactive) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/yargs-interactive)
 
+Interactive (prompt) support for [yargs](https://github.com/yargs/yargs), based on [inquirer](https://github.com/SBoudrias/Inquirer.js/). Useful for using the same CLI for both for humans and non-humans (like CI tools). Also supports mixed mode (yay!).
 
-Interactive support for [yargs](https://github.com/yargs/yargs), based on [inquirer](https://github.com/SBoudrias/Inquirer.js/). Useful for using the same CLI for both for humans and non-humans (like CI tools). Also supports mixed mode (yay!).
-
-![Yargs Interactive](./yargs-interactive-logo.png)
+![Yargs Interactive](./assets/yargs-interactive-logo.png)
 
 This tool helps you to build command line tools without worring to parse arguments or ask them.
 
@@ -21,13 +21,15 @@ const yargsInteractive = require('yargs-interactive');
 
 yargsInteractive()
   .usage('$0 <command> [args]')
-  .interactive(/* pass options here, like */)
+  .interactive(/* pass options here */)
   .then((result) => {
       // Arguments will be in the result
       // (e.g. result.name)
     });
 });
 ```
+
+![](./assets/interactive-with-parameter.gif)
 
 **What type of prompts are supported?** It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
 
@@ -72,6 +74,33 @@ yargsInteractive()
 **Usage in terminal**
 ```
 ➜ node my-cli.js --interactive
+```
+
+If you want to **always use interactive mode**, even without sending the `--interactive` parameter, just add an `interactive` option with default value set to `true`.
+
+```js
+const options = {
+  interactive: {
+    default: true,
+  },
+  ...
+};
+
+yargsInteractive()
+  .usage('$0 <command> [args]')
+  .interactive(options)
+  .then((result) => {
+    // The tool will prompt questions and will output your answers.
+    // TODO: Do something with the result (e.g result.name)
+    console.log(result)
+  });
+```
+
+![](./assets/interactive-with-parameter.gif)
+
+**Usage in terminal**
+```
+➜ node my-cli.js
 ```
 
 ### Prompt just some options (mixed mode)
