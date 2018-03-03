@@ -16,32 +16,35 @@ Then, add this code in your CLI code to get all the arguments parsed:
 
 ```js
 #!/usr/bin/env node
+
 const yargsInteractive = require('yargs-interactive');
+const options = {
+  name: { type: 'input', default: 'nano', describe: 'Enter your name' },
+  likesPizza: { type: 'confirm', default: false, describe: 'Do you like pizza?' },
+};
 
 yargsInteractive()
   .usage('$0 <command> [args]')
-  .interactive(/* pass options here */)
+  .interactive(options)
   .then((result) => {
-      // Arguments will be in the result
-      // (e.g. result.name)
-    });
-});
+    // Your business logic goes here.
+    // Get the arguments from the result
+    // (e.g. result.name)
+  });
 ```
 
-![](./assets/interactive-with-parameter.gif)
-
-**What type of prompts are supported?** It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
+![Basic usage](./assets/basic-usage.gif)
 
 > **Note:** See more usage examples [in the examples folder](./examples).
 
 ## Usage
 
 It supports the following use cases
-* [Full interactive (prompt questions with default values)](#full-interactive-prompt-questions-with-default-values)
-* [Prompt just some options (mixed mode)](#prompt-just-some-options-mixed-mode)
+* [Prompt questions with default values (full-interactive)](#prompt-questions-with-default-values-full-interactive)
+* [Prompt just some questions (mixed mode)](#prompt-just-some-questions-mixed-mode)
 * [No prompt at all (ye olde yargs)](#no-prompt-at-all-ye-olde-yargs)
 
-### Full interactive (prompt questions with default values)
+### Prompt questions with default values (full-interactive)
 
 **my-cli.js**
 ```js
@@ -71,17 +74,18 @@ yargsInteractive()
 ```
 
 **Usage in terminal**
+
 ```
 ➜ node my-cli.js --interactive
 ```
 
-If you want to **always use interactive mode**, even without sending the `--interactive` parameter, just add an `interactive` option with default value set to `true`.
+![](./assets/interactive-with-parameter.gif)
+
+If you want to **use interactive mode always**, just set the `--interactive`` parameter to `true` by default.
 
 ```js
 const options = {
-  interactive: {
-    default: true,
-  },
+  interactive: { default: true },
   ...
 };
 
@@ -95,14 +99,15 @@ yargsInteractive()
   });
 ```
 
-![](./assets/interactive-with-parameter.gif)
+And then simply call your CLI with no parameters.
 
-**Usage in terminal**
 ```
 ➜ node my-cli.js
 ```
 
-### Prompt just some options (mixed mode)
+**What type of prompts are supported?** It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
+
+### Prompt just some questions (mixed mode)
 
 You can opt-out options from interactive mode by setting the `prompt` property to `false`.
 

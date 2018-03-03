@@ -21,7 +21,7 @@ const yargsInteractive = require('../src');
 const options = {
   name: {
     type: 'input',
-    default: 'nano',
+    default: 'A robot',
     describe: 'Enter your name'
   },
   likesPizza: {
@@ -41,4 +41,3 @@ yargsInteractive()
         + `- Likes pizza: ${result.likesPizza}\n`
       );
   });
-
