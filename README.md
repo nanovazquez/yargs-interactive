@@ -1,11 +1,15 @@
-# Yargs Interactive 
-[![Build Status](https://travis-ci.org/nanovazquez/yargs-interactive.svg?branch=master)](https://travis-ci.org/nanovazquez/yargs-interactive) [![Coverage Status](https://coveralls.io/repos/github/nanovazquez/yargs-interactive/badge.svg)](https://coveralls.io/github/nanovazquez/yargs-interactive) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![npm](https://img.shields.io/npm/v/yargs-interactive.svg?style=flat)](https://www.npmjs.com/package/yargs-interactive) 
+# Yargs Interactive
+[![Build Status](https://travis-ci.org/nanovazquez/yargs-interactive.svg?branch=master)](https://travis-ci.org/nanovazquez/yargs-interactive) [![Coverage Status](https://coveralls.io/repos/github/nanovazquez/yargs-interactive/badge.svg)](https://coveralls.io/github/nanovazquez/yargs-interactive) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![npm](https://img.shields.io/npm/v/yargs-interactive.svg?style=flat)](https://www.npmjs.com/package/yargs-interactive)
+[![npm](https://img.shields.io/npm/dw/yargs-interactive.svg)](https://www.npmjs.com/package/yargs-interactive)
+
+
+[See the blog post](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
 
 Interactive (prompt) support for [yargs](https://github.com/yargs/yargs), based on [inquirer](https://github.com/SBoudrias/Inquirer.js/). Useful for using the same CLI for both for humans and non-humans (like CI tools). Also supports mixed mode (yay!).
 
 ![Yargs Interactive](./assets/yargs-interactive-logo.png)
 
-This tool helps you to build command line tools without worring to parse arguments, or develop the logic to ask them. [See the blog post!](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
+This tool helps you to build command line tools without worring to parse arguments, or develop the logic to ask them.
 
 ## Installation
 
@@ -20,7 +24,7 @@ Then, add this code in your CLI code to get all the arguments parsed:
 
 const yargsInteractive = require('yargs-interactive');
 const options = {
-  name: { type: 'input', default: 'nano', describe: 'Enter your name' },
+  name: { type: 'input', default: 'A robot', describe: 'Enter your name' },
   likesPizza: { type: 'confirm', default: false, describe: 'Do you like pizza?' },
 };
 
@@ -31,8 +35,11 @@ yargsInteractive()
     // Your business logic goes here.
     // Get the arguments from the result
     // (e.g. result.name)
+    myCli(result.name);
   });
 ```
+
+By simply wrapping your CLI code with this tool, you will get all the information you need from the user.
 
 ![Basic usage](./assets/basic-usage.gif)
 
