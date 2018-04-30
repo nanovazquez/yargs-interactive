@@ -2,8 +2,7 @@
 [![Build Status](https://travis-ci.org/nanovazquez/yargs-interactive.svg?branch=master)](https://travis-ci.org/nanovazquez/yargs-interactive) [![Coverage Status](https://coveralls.io/repos/github/nanovazquez/yargs-interactive/badge.svg)](https://coveralls.io/github/nanovazquez/yargs-interactive) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![npm](https://img.shields.io/npm/v/yargs-interactive.svg?style=flat)](https://www.npmjs.com/package/yargs-interactive)
 [![npm](https://img.shields.io/npm/dw/yargs-interactive.svg)](https://www.npmjs.com/package/yargs-interactive)
 
-
-[See the blog post](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
+[_See the blog post_](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
 
 Interactive (prompt) support for [yargs](https://github.com/yargs/yargs), based on [inquirer](https://github.com/SBoudrias/Inquirer.js/). Useful for using the same CLI for both for humans and non-humans (like CI tools). Also supports mixed mode (yay!).
 
@@ -113,11 +112,18 @@ And then simply call your CLI with no parameters.
 ➜ node my-cli.js
 ```
 
-**What type of prompts are supported?** It provides all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).
+### Options
+
+| Property   | Type         | Description                   |
+| ---------- | -------------| ----------------------------- |
+| type       |  string      | _(Required)_ The type of the option to prompt (e.g. `input`, `confirm`, etc.). **We provide all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).**|
+| describe   |  string      | _(Required)_ The message to display when prompting the option (e.g. `Do you like pizza?`) |
+| default    |  any         | The default value of the option. |
+| prompt     |  string      | _(Default is `if-empty`)_ Property to decide whether to prompt the option or not. Possible values: `always`, `never` and `if-empty`, which prompts the option if the value wasn't set via command line parameters or using the default property. |
 
 ### Prompt just some questions (mixed mode)
 
-You can opt-out options from interactive mode by setting the `prompt` property to `false`.
+You can opt-out options from interactive mode by setting the `prompt` property to `never`.
 
 **my-cli.js**
 ```js
@@ -133,7 +139,7 @@ const options = {
     type: 'confirm',
     default: false,
     describe: 'Do you like pizza?',
-    prompt: false // because everyone likes pizza
+    prompt: 'never' // because everyone likes pizza
   },
 };
 
@@ -141,13 +147,15 @@ yargsInteractive()
   .usage('$0 <command> [args]')
   .interactive(options)
   .then((result) => {
-    // The tool will prompt questions for all options and will output your answers.
-    // You can opt-out options by using `prompt: false`. For these properties, it
+    // The tool will prompt questions output the answers.
+    // You can opt-out options by using `prompt: 'never'`. For these properties, it
     // will use the value sent by parameter (--likesPizza) or the default value.
     // TODO: Do something with the result (e.g result.name)
     console.log(result);
   });
 ```
+
+ By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters or using the default property. Last, you can use `always` to always prompt the option.
 
 **Usage in terminal**
 ```

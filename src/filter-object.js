@@ -1,12 +1,16 @@
-// Filter keys in an object based on a condition,
-// returning a new object with the keys that pass the test.
-// (i.e. if condition(key) returns true, the key is kept).
+/**
+ * Filter keys in an object based on a condition.
+ * @param {Object} element - The element whose keys will be filtered.
+ * @param {any} condition - (value, key) => boolean
+ * The condition to execute in each key value (i.e. if condition(value, key) returns true, the key is kept).
+ * @return {object} - A new object with only the keys that pass the condition.
+ */
 module.exports = (element = {}, condition = () => true) => {
   const toReturn = {};
 
   Object.keys(element).forEach((key) => {
     const value = element[key];
-    if (condition(value)) {
+    if (condition(value, key)) {
       toReturn[key] = value;
     }
   });

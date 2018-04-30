@@ -1,21 +1,24 @@
 #!/usr/bin/env node
 
 /*
- * Usage:
+ * Usage 1:
  * 1) Open a terminal.
- * 2) Enter: node ./examples/full-interactive.js'
- * Result: The tool will prompt questions and will output the answers.
+ * 2) Enter: node ./examples/prompt.js --interactive
+ * Result: The tool will prompt question for namem and likesPizza.
+ *
+ * Usage 2:
+ * 1) Open a terminal.
+ * 2) Enter: node ./examples/prompt.js --name="John"
+ * Result: The tool will prompt question for likesPizza but not for the name (it was sent via parameter).
  */
+
 const yargsInteractive = require('../src');
 
 const options = {
-  interactive: {
-    default: true,
-  },
   name: {
     type: 'input',
-    default: 'nano',
-    describe: 'Enter your name'
+    describe: 'Enter your name',
+    prompt: 'if-empty'
   },
   likesPizza: {
     type: 'confirm',
@@ -34,4 +37,3 @@ yargsInteractive()
         + `- Likes pizza: ${result.likesPizza}\n`
       );
   });
-

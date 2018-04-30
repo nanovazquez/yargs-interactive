@@ -3,10 +3,12 @@
   "version": "0.0.0-semantic-release",
   "description": "Build interactive command line tools without worring to parse the arguments (or ask them).",
   "main": "src/index.js",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
     "lint": "eslint .",
-    "test": "nyc --reporter=text mocha",
+    "test": "nyc --reporter=text --reporter=html mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "commitmsg": "validate-commit-msg",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
