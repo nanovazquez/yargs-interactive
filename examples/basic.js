@@ -1,19 +1,25 @@
 #!/usr/bin/env node
 
 /*
- * Usage:
+ * Usage 1:
  * 1) Open a terminal.
  * 2) Enter: node ./examples/basic.js --name='John'
- * 3) Output should have John as name and the default value of likesPizza (false).
+ * Result: Output should have John as name and the default value of likesPizza (false).
  *
- * Alternatives
- * ------------
- * 1) Enter: node ./examples/basic.js --name='John' --likesPizza
- *    Output should have John as name and likesPizza set to true
+ * Usage 2:
+ * 1) Open a terminal.
+ * 2) Enter: node ./examples/basic.js --name='John' --likesPizza
+ *    Result: Output should have John as name and likesPizza set to true
+ *
+ * Usage 3:
+ * 1) Open a terminal.
  * 2) Enter: node ./examples/basic.js
- *    Output should have the default values in all properties.
- * 3) Enter: node ./examples/basic.js --interactive
- *    The tool will prompt questions and will output your answers.
+ *    Result: Output should have the default values in all properties.
+ *
+ * Usage 4:
+ * 1) Open a terminal.
+ * 2) Enter: node ./examples/basic.js --interactive
+ *    Result: he tool will prompt questions and will output the answers.
  */
 
 const yargsInteractive = require('../src');

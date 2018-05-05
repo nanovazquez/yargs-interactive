@@ -69,6 +69,7 @@ describe('yargsInteractive', () => {
           type: 'input',
           default: 'custom',
           describe: 'Project name',
+          prompt: 'if-empty',
         },
       };
     });
@@ -125,6 +126,26 @@ describe('yargsInteractive', () => {
           .version()
           .help()
           .interactive(options)
+          .then((output) => result = output);
+      });
+
+      it('should return yargs default properties', () => {
+        checkProperties(result, {interactive: true});
+      });
+
+      it('should call interactive mode', () => {
+        assert.equal(interactiveModeStub.called, true, 'interactive mode');
+      });
+    });
+
+    describe('and interactive option', () => {
+      before(() => {
+        const optionsWithInteractive = Object.assign({}, options, {interactive: {default: true}});
+        return yargsInteractive()
+          .usage('$0 <command> [args]')
+          .version()
+          .help()
+          .interactive(optionsWithInteractive)
           .then((output) => result = output);
       });
 
