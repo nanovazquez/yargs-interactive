@@ -9,8 +9,8 @@ module.exports = (values = {}) => {
       type: value.type,
       message: value.describe,
       default: value.default,
-      choices: value.options,
     });
   });
+
   return prompt(questions);
 };
