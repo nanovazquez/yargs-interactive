@@ -13,20 +13,17 @@ describe('interactive-mode', () => {
     inquirerPromptStub = sinon.stub();
     inquirerCreatePromptModuleStub = sinon.stub(inquirer, 'createPromptModule').returns(inquirerPromptStub);
     interactiveMode = proxyquire('../src/interactive-mode', {
-      'inquirer': {createPromptModule: inquirerCreatePromptModuleStub},
+      'inquirer': {
+        createPromptModule: inquirerCreatePromptModuleStub
+      },
     });
-    values = {
-      title: {
-        type: 'input',
-        describe: 'Message to display',
-        default: 'default value',
-        options: ['title1', 'title2']
-      }
-    };
   });
 
   describe('with no values', () => {
     before(() => {
+      // Reset stub
+      inquirerPromptStub.reset();
+
       values = undefined;
       interactiveMode(values);
     });
@@ -42,12 +39,19 @@ describe('interactive-mode', () => {
 
   describe('with values', () => {
     before(() => {
+      // Reset stub
+      inquirerPromptStub.reset();
+
       values = {
         title: {
           type: 'input',
           describe: 'Message to display',
           default: 'default value',
-          options: ['title1', 'title2']
+        },
+        message: {
+          type: 'list',
+          describe: 'Welcome message',
+          choices: ['hi', 'hello', 'hola!'],
         }
       };
       interactiveMode(values);
@@ -63,13 +67,15 @@ describe('interactive-mode', () => {
 
     it('should properly transform the values to inquirer values', () => {
       const args = inquirerPromptStub.getCalls()[0].args[0];
+      assert.equal(args.length, Object.keys(values).length, 'no. of values sent to inquirer');
+
       args.forEach((question) => {
         const inputValues = values[question.name];
         assert.ok(inputValues, 'values');
         assert.equal(question.type, inputValues.type, 'type');
         assert.equal(question.message, inputValues.describe, 'message');
         assert.equal(question.default, inputValues.default, 'default');
-        assert.equal(question.choices, inputValues.options, 'choices');
+        assert.equal(question.choices, inputValues.choices, 'choices');
       });
     });
   });
