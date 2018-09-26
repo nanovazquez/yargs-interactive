@@ -33,16 +33,24 @@ yargsInteractive()
   .then((result) => {
     // Your business logic goes here.
     // Get the arguments from the result
-    // (e.g. result.name)
-    myCli(result.name);
+    // e.g. myCli(result.name);
+      console.log(
+        `\nResult is:\n`
+        + `- Name: ${result.name}\n`
+        + `- Likes pizza: ${result.likesPizza}\n`
+      );
   });
 ```
 
-By simply wrapping your CLI code with this tool, you will get all the information you need from the user.
+Now, by simply wrapping your CLI code with this tool, you'll get all the information you need from the user. For instance, save the previous snipped in a file named *my-cli.js* and run it in your terminal:
+
+```
+➜ node my-cli.js --interactive
+```
 
 ![Basic usage](./assets/basic-usage.gif)
 
-> **Note:** See more usage examples [in the examples folder](./examples).
+> **Note:** See other CLI examples [in this folder](./examples).
 
 ## Usage
 
@@ -88,7 +96,7 @@ yargsInteractive()
 
 ![](./assets/interactive-with-parameter.gif)
 
-If you want to **use interactive mode always**, just set the `--interactive`` parameter to `true` by default.
+If you want to **use interactive mode always**, avoiding the need of sending it as an argument, set the `--interactive` parameter to `true` by default:
 
 ```js
 const options = {
