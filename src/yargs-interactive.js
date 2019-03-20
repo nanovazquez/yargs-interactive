@@ -27,12 +27,22 @@ let yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
       .options(mergedOptions)
       .argv;
 
-    // Remove options with prompt value set to 'never'
-    // and options with prompt value set to 'if-empty' but no default value or value set via parameter
-    const interactiveOptions = filterObject(mergedOptions, (item, key) => (
-      item.prompt !== 'never'
-      && (item.prompt !== 'if-empty' || isEmpty(item.default) || isEmpty(argv[key]))
-    ));
+    // Filter options to prompt based on the "if-empty" property
+    const interactiveOptions = filterObject(mergedOptions, (item, key) => {
+      // Do not prompt items with prompt value set as "never"
+      if (item.prompt === 'never') {
+        return false;
+      }
+
+      // Prompt items with prompt value set as "always"
+      if (item.prompt === 'always') {
+        return true;
+      }
+
+      // Cases: item.prompt === "if-empty" or item.prompt undefined (fallbacks to "if-empty")
+      // Prompt the items that are empty (i.e. a value was not sent via parameter OR doesn't have a default value)
+      return isEmpty(argv[key]) && isEmpty(item.default);
+    });
 
     // Check if we should get the values from the interactive mode
     return argv.interactive
