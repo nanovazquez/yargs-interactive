@@ -138,6 +138,53 @@ describe('yargsInteractive', () => {
       });
     });
 
+    describe('and interactive parameters with prompt option', () => {
+      let expectedParameters;
+
+      before(() => {
+        options = {
+          directory: {
+            type: 'input',
+            default: '.',
+            describe: 'Target directory',
+          },
+          projectName: {
+            type: 'input',
+            describe: 'Project name',
+            prompt: 'if-empty',
+          },
+          user: {
+            type: 'input',
+            describe: 'user',
+            prompt: 'never'
+          },
+          password: {
+            type: 'input',
+            describe: 'user',
+            prompt: 'always'
+          },
+        };
+
+        expectedParameters = {directory: 'abc', projectName: 'def'};
+        return yargsInteractive(Object.keys(expectedParameters).map((key) => `--${key}=${expectedParameters[key]}`))
+          .usage('$0 <command> [args]')
+          .version()
+          .help()
+          .interactive(options)
+          .then((output) => result = output);
+      });
+
+      it('should return yargs default properties', () => {
+        checkProperties(result);
+      });
+
+      it('should return options with values sent by parameter', () => {
+        Object.keys(options).forEach((key) => {
+          assert.equal(result[key], expectedParameters[key], key);
+        });
+      });
+    });
+
     describe('and interactive option', () => {
       before(() => {
         const optionsWithInteractive = Object.assign({}, options, {interactive: {default: true}});

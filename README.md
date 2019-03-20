@@ -131,7 +131,7 @@ And then simply call your CLI with no parameters.
 
 ### Prompt just some questions (mixed mode)
 
-You can opt-out options from interactive mode by setting the `prompt` property to `never`.
+You can opt-out options from interactive mode by setting the `prompt` property to `never`. By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters or it doesn't have a default property. Last, you can use `always` to always prompt the option.
 
 **my-cli.js**
 ```js
@@ -139,8 +139,8 @@ const yargsInteractive = require('yargs-interactive');
 
 const options = {
   name: {
+    // prompt property if not set defaults to 'if-empty'
     type: 'input',
-    name: 'nano',
     describe: 'Enter your name'
   },
   likesPizza: {
@@ -163,12 +163,12 @@ yargsInteractive()
   });
 ```
 
- By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters or using the default property. Last, you can use `always` to always prompt the option.
-
 **Usage in terminal**
 ```
-➜ node my-cli.js --name='Johh' --interactive
+➜ node my-cli.js --interactive
 ```
+
+Notice that if you enter `node my-cli.js --name='Johh' --interactive` name won't be prompted either (as by default it uses `if-empty`).
 
 ### No prompt at all (ye olde yargs)
 
@@ -179,7 +179,7 @@ const yargsInteractive = require('yargs-interactive');
 const options = {
   name: {
     type: 'input',
-    name: 'nano',
+    default: 'nano',
     describe: 'Enter your name'
   },
   likesPizza: {
