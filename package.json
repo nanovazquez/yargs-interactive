@@ -11,7 +11,7 @@
     "test": "nyc --reporter=text --reporter=html mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "commitmsg": "validate-commit-msg",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",
     "proxyquire": "^1.8.0",
-    "semantic-release": "^8.2.0",
+    "semantic-release": "^15.13.3",
     "sinon": "^4.1.2",
     "validate-commit-msg": "^2.14.0"
   }
