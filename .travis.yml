@@ -4,8 +4,8 @@ sudo: false
 language: node_js
 
 node_js:
+  - 10
   - 8
-  - 6
 
 cache:
   directories:
@@ -18,4 +18,3 @@ script:
 after_success:
   - npm run coveralls
   - npm run semantic-release
-
