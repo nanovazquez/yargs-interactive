@@ -127,11 +127,11 @@ And then simply call your CLI with no parameters.
 | type       |  string      | _(Required)_ The type of the option to prompt (e.g. `input`, `confirm`, etc.). **We provide all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).**|
 | describe   |  string      | _(Required)_ The message to display when prompting the option (e.g. `Do you like pizza?`) |
 | default    |  any         | The default value of the option. |
-| prompt     |  string      | _(Default is `if-empty`)_ Property to decide whether to prompt the option or not. Possible values: `always`, `never` and `if-empty`, which prompts the option if the value wasn't set via command line parameters or using the default property. |
+| prompt     |  string      | _(Default is `if-empty`)_ Property to decide whether to prompt the option or not. Possible values: `always`, `never`, `if-no-arg` and `if-empty`, which prompts the option if the value wasn't set via command line parameters or using the default property. |
 
 ### Prompt just some questions (mixed mode)
 
-You can opt-out options from interactive mode by setting the `prompt` property to `never`. By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters or it doesn't have a default property. Last, you can use `always` to always prompt the option.
+You can opt-out options from interactive mode by setting the `prompt` property to `never`. By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters or it doesn't have a default property. Setting to `if-no-arg` will only prompt the question if no argument is provided. Lastly, you can use `always` to always prompt the option.
 
 **my-cli.js**
 ```js

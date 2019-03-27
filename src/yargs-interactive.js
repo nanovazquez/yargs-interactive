@@ -3,8 +3,11 @@ const interactiveMode = require('./interactive-mode');
 const filterObject = require('./filter-object');
 const isEmpty = require('./is-empty');
 
+const argsProvided = process.argv.slice(2);
+const isArgProvided = (arg) => argsProvided.some(argProvided => argProvided === `--${arg}` || argProvided.startsWith(`--${arg}=`));
+
 // Set up yargs options
-let yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
+let yargsInteractive = (processArgs = argsProvided, cwd) => {
   const yargsConfig = yargs(processArgs, cwd);
 
   // Add interactive functionality
@@ -37,6 +40,10 @@ let yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
       // Prompt items with prompt value set as "always"
       if (item.prompt === 'always') {
         return true;
+      }
+
+      if (item.prompt === 'if-no-arg') {
+        return !isArgProvided(key);
       }
 
       // Cases: item.prompt === "if-empty" or item.prompt undefined (fallbacks to "if-empty")
