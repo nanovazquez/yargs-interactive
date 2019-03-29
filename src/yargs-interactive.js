@@ -42,6 +42,7 @@ let yargsInteractive = (processArgs = argsProvided, cwd) => {
         return true;
       }
 
+      // Prompt items that are set with 'if-no-arg' and values were not send via command line parameters
       if (item.prompt === 'if-no-arg') {
         return !isArgProvided(key);
       }
