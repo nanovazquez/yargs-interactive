@@ -4,7 +4,7 @@ const filterObject = require('./filter-object');
 const isEmpty = require('./is-empty');
 
 const argsProvided = process.argv.slice(2);
-const isArgProvided = (arg) => argsProvided.some(argProvided => argProvided === `--${arg}` || argProvided.startsWith(`--${arg}=`));
+const isArgProvided = (arg) => argsProvided.some((argProvided) => argProvided === `--${arg}` || argProvided.startsWith(`--${arg}=`));
 
 // Set up yargs options
 let yargsInteractive = (processArgs = argsProvided, cwd) => {
