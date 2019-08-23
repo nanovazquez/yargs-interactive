@@ -7,7 +7,7 @@ describe('is-empty', () => {
   let expectedResult;
 
   describe('with no element', () => {
-    before(() => {
+    beforeAll(() => {
       element = undefined;
       result = isEmpty(element);
       expectedResult = true;
@@ -19,7 +19,7 @@ describe('is-empty', () => {
   });
 
   describe('with null element', () => {
-    before(() => {
+    beforeAll(() => {
       element = null;
       result = isEmpty(element);
       expectedResult = true;
@@ -31,7 +31,7 @@ describe('is-empty', () => {
   });
 
   describe('with empty string', () => {
-    before(() => {
+    beforeAll(() => {
       element = '';
       result = isEmpty(element);
       expectedResult = true;
@@ -43,7 +43,7 @@ describe('is-empty', () => {
   });
 
   describe('with empty array', () => {
-    before(() => {
+    beforeAll(() => {
       element = [];
       result = isEmpty(element);
       expectedResult = true;
@@ -55,7 +55,7 @@ describe('is-empty', () => {
   });
 
   describe('with string element', () => {
-    before(() => {
+    beforeAll(() => {
       element = 'element';
       result = isEmpty(element);
       expectedResult = false;

@@ -3,10 +3,10 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "jest": true
   },
   "rules": {
-    "max-len": [2, 200],
+    "max-len": ["error", 200],
     "require-jsdoc": "off",
     "no-console": "off",
     "comma-dangle": "off"

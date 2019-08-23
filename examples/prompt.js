@@ -28,12 +28,12 @@ const options = {
 };
 
 yargsInteractive()
-  .usage('$0 <command> [args]')
-  .interactive(options)
-  .then((result) => {
+    .usage('$0 <command> [args]')
+    .interactive(options)
+    .then((result) => {
       console.log(
-        `\nResult is:\n`
+          `\nResult is:\n`
         + `- Name: ${result.name}\n`
         + `- Likes pizza: ${result.likesPizza}\n`
       );
-  });
+    });

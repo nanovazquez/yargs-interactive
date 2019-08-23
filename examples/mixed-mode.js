@@ -23,12 +23,12 @@ const options = {
 };
 
 yargsInteractive()
-  .usage('$0 <command> [args]')
-  .interactive(options)
-  .then((result) => {
-    console.log(
-      `\nResult is:\n`
+    .usage('$0 <command> [args]')
+    .interactive(options)
+    .then((result) => {
+      console.log(
+          `\nResult is:\n`
       + `- Name: ${result.name}\n`
       + `- Likes pizza: ${result.likesPizza}\n`
-    );
-  });
+      );
+    });

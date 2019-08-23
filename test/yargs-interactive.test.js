@@ -28,7 +28,7 @@ describe('yargsInteractive', () => {
   let interactiveModeStub;
   let yargsInteractive;
 
-  before(() => {
+  beforeAll(() => {
     interactiveModeStub = sinon.stub().resolves({});
     yargsInteractive = proxyquire('../src/yargs-interactive', {
       './interactive-mode': interactiveModeStub,
@@ -36,13 +36,13 @@ describe('yargsInteractive', () => {
   });
 
   describe('with no interactive', () => {
-    before(() => {
+    beforeAll(() => {
       interactiveModeStub.resetHistory();
       result = yargsInteractive()
-        .usage('$0 <command> [args]')
-        .version()
-        .help()
-        .argv;
+          .usage('$0 <command> [args]')
+          .version()
+          .help()
+          .argv;
     });
 
     it('should not set interactive argument', () => {
@@ -55,14 +55,14 @@ describe('yargsInteractive', () => {
   });
 
   describe('with no options', () => {
-    before(() => {
+    beforeAll(() => {
       interactiveModeStub.resetHistory();
       return yargsInteractive()
-        .usage('$0 <command> [args]')
-        .version()
-        .help()
-        .interactive()
-        .then((output) => (result = output));
+          .usage('$0 <command> [args]')
+          .version()
+          .help()
+          .interactive()
+          .then((output) => (result = output));
     });
 
     it('should return yargs default properties', () => {
@@ -73,7 +73,7 @@ describe('yargsInteractive', () => {
   describe('with options', () => {
     let options;
 
-    before(() => {
+    beforeAll(() => {
       options = {
         directory: {
           type: 'input',
@@ -90,14 +90,14 @@ describe('yargsInteractive', () => {
     });
 
     describe('and no parameters', () => {
-      before(() => {
+      beforeAll(() => {
         interactiveModeStub.resetHistory();
         return yargsInteractive()
-          .usage('$0 <command> [args]')
-          .version()
-          .help()
-          .interactive(options)
-          .then((output) => (result = output));
+            .usage('$0 <command> [args]')
+            .version()
+            .help()
+            .interactive(options)
+            .then((output) => (result = output));
       });
 
       it('should return yargs default properties', () => {
@@ -114,15 +114,15 @@ describe('yargsInteractive', () => {
     describe('and parameters', () => {
       let expectedParameters;
 
-      before(() => {
+      beforeAll(() => {
         interactiveModeStub.resetHistory();
         expectedParameters = {directory: 'abc', projectName: 'def'};
         return yargsInteractive(Object.keys(expectedParameters).map((key) => `--${key}=${expectedParameters[key]}`))
-          .usage('$0 <command> [args]')
-          .version()
-          .help()
-          .interactive(options)
-          .then((output) => (result = output));
+            .usage('$0 <command> [args]')
+            .version()
+            .help()
+            .interactive(options)
+            .then((output) => (result = output));
       });
 
       it('should return yargs default properties', () => {
@@ -137,14 +137,14 @@ describe('yargsInteractive', () => {
     });
 
     describe('and interactive parameter', () => {
-      before(() => {
+      beforeAll(() => {
         interactiveModeStub.resetHistory();
         return yargsInteractive(`--interactive`)
-          .usage('$0 <command> [args]')
-          .version()
-          .help()
-          .interactive(options)
-          .then((output) => (result = output));
+            .usage('$0 <command> [args]')
+            .version()
+            .help()
+            .interactive(options)
+            .then((output) => (result = output));
       });
 
       it('should return yargs default properties', () => {
@@ -157,15 +157,15 @@ describe('yargsInteractive', () => {
     });
 
     describe('and interactive option', () => {
-      before(() => {
+      beforeAll(() => {
         interactiveModeStub.resetHistory();
         const optionsWithInteractive = Object.assign({}, options, {interactive: {default: true}});
         return yargsInteractive()
-          .usage('$0 <command> [args]')
-          .version()
-          .help()
-          .interactive(optionsWithInteractive)
-          .then((output) => (result = output));
+            .usage('$0 <command> [args]')
+            .version()
+            .help()
+            .interactive(optionsWithInteractive)
+            .then((output) => (result = output));
       });
 
       it('should return yargs default properties', () => {
@@ -183,7 +183,7 @@ describe('yargsInteractive', () => {
     let promptedOptions;
     let options;
 
-    before(() => {
+    beforeAll(() => {
       interactiveModeStub.resetHistory();
       yargsInteractiveArgs = [`--interactive`, `--option8='value'`];
       options = {
@@ -204,14 +204,14 @@ describe('yargsInteractive', () => {
       };
 
       return yargsInteractive(yargsInteractiveArgs)
-        .usage('$0 <command> [args]')
-        .version()
-        .help()
-        .interactive(options)
-        .then((output) => {
-          result = output;
-          promptedOptions = interactiveModeStub.args[0][0];
-        });
+          .usage('$0 <command> [args]')
+          .version()
+          .help()
+          .interactive(options)
+          .then((output) => {
+            result = output;
+            promptedOptions = interactiveModeStub.args[0][0];
+          });
     });
 
     it('should prompt options with prompt set as "always"', () => {

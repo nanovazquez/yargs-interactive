@@ -9,7 +9,7 @@ describe('interactive-mode', () => {
   let interactiveMode;
   let values;
 
-  before(() => {
+  beforeAll(() => {
     inquirerPromptStub = sinon.stub();
     inquirerCreatePromptModuleStub = sinon.stub(inquirer, 'createPromptModule').returns(inquirerPromptStub);
     interactiveMode = proxyquire('../src/interactive-mode', {
@@ -20,7 +20,7 @@ describe('interactive-mode', () => {
   });
 
   describe('with no values', () => {
-    before(() => {
+    beforeAll(() => {
       // Reset stub
       inquirerPromptStub.reset();
 
@@ -38,7 +38,7 @@ describe('interactive-mode', () => {
   });
 
   describe('with values', () => {
-    before(() => {
+    beforeAll(() => {
       // Reset stub
       inquirerPromptStub.reset();
 

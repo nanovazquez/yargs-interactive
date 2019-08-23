@@ -7,10 +7,9 @@
     "src"
   ],
   "scripts": {
-    "lint": "eslint src test",
-    "test": "nyc --reporter=text --reporter=html mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "commitmsg": "validate-commit-msg",
+    "lint": "eslint src test --fix",
+    "test": "jest --collectCoverage",
+    "coveralls": "jest --collectCoverage && cat ./tests/coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release"
   },
   "repository": {
@@ -33,19 +32,49 @@
   },
   "homepage": "https://github.com/nanovazquez/yargs-interactive#readme",
   "dependencies": {
-    "inquirer": "^4.0.0",
-    "yargs": "^10.0.3"
+    "inquirer": "^7.0.0",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
-    "coveralls": "^3.0.0",
-    "eslint": "^4.11.0",
-    "eslint-config-google": "^0.9.1",
-    "husky": "^0.14.3",
-    "mocha": "^4.0.1",
-    "nyc": "^11.3.0",
-    "proxyquire": "^1.8.0",
-    "semantic-release": "^15.13.3",
-    "sinon": "^4.1.2",
-    "validate-commit-msg": "^2.14.0"
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@types/inquirer": "^6.5.0",
+    "@types/jest": "^24.0.18",
+    "@types/node": "12.7.2",
+    "@types/yargs": "^13.0.2",
+    "coveralls": "^3.0.6",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^6.2.1",
+    "eslint-config-google": "^0.13.0",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
+    "semantic-release": "^15.13.24"
+  },
+  "engines": {
+    "node": ">=8",
+    "npm": ">=6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "npm run lint",
+      "git add"
+    ]
   }
 }
