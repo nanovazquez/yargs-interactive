@@ -1,11 +1,12 @@
-const proxyquire = require('proxyquire');
+require('jest-matcher-one-of');
+const yargsInteractive = require('../src/yargs-interactive');
 
 function checkProperties(result, expectedValues = {}) {
-  expect(!!result._).toBe(true);
+  expect(!!result._).toBeTruthy();
   expect(!!result.$0).toBe(true);
-  expect(result.version).toBe(!!expectedValues.version);
-  expect(result.help).toBe(!!expectedValues.help);
-  expect(result.interactive).toBe(!!expectedValues.interactive);
+  if ('version' in expectedValues) expect(result.version).toBe(expectedValues.version);
+  if ('help' in expectedValues) expect(result.help).toBe(expectedValues.help);
+  if ('interactive' in expectedValues) expect(result.interactive).toBe(expectedValues.interactive);
 }
 
 function getOptionKeys({options, prompt, hasDefaultValue}) {
@@ -23,20 +24,9 @@ function getOptionKeys({options, prompt, hasDefaultValue}) {
 
 describe('yargsInteractive', () => {
   let result;
-  let interactiveModeStub;
-  let yargsInteractive;
-
-  beforeAll(() => {
-    // interactiveModeStub = sinon.stub().resolves({});
-    interactiveModeStub = jest.fn();
-    yargsInteractive = proxyquire('../src/yargs-interactive', {
-      './interactive-mode': interactiveModeStub,
-    });
-  });
 
   describe('with no interactive', () => {
-    beforeAll(() => {
-      interactiveModeStub.resetHistory();
+    beforeEach(() => {
       result = yargsInteractive()
           .usage('$0 <command> [args]')
           .version()
@@ -44,18 +34,13 @@ describe('yargsInteractive', () => {
           .argv;
     });
 
-    it('should not set interactive argument', () => {
+    test('should not set interactive argument', () => {
       expect(result.interactive).toBeUndefined();
-    });
-
-    it('should not call interactive mode', () => {
-      expect(interactiveModeStub).not.toHaveBeenCalledWith('interactive mode');
     });
   });
 
   describe('with no options', () => {
-    beforeAll(() => {
-      interactiveModeStub.resetHistory();
+    beforeEach(() => {
       return yargsInteractive()
           .usage('$0 <command> [args]')
           .version()
@@ -64,7 +49,7 @@ describe('yargsInteractive', () => {
           .then((output) => (result = output));
     });
 
-    it('should return yargs default properties', () => {
+    test('should return yargs default properties', () => {
       checkProperties(result);
     });
   });
@@ -72,7 +57,7 @@ describe('yargsInteractive', () => {
   describe('with options', () => {
     let options;
 
-    beforeAll(() => {
+    beforeEach(() => {
       options = {
         directory: {
           type: 'input',
@@ -89,8 +74,7 @@ describe('yargsInteractive', () => {
     });
 
     describe('and no parameters', () => {
-      beforeAll(() => {
-        interactiveModeStub.resetHistory();
+      beforeEach(() => {
         return yargsInteractive()
             .usage('$0 <command> [args]')
             .version()
@@ -99,11 +83,11 @@ describe('yargsInteractive', () => {
             .then((output) => (result = output));
       });
 
-      it('should return yargs default properties', () => {
+      test('should return yargs default properties', () => {
         checkProperties(result);
       });
 
-      it('should return options with default values', () => {
+      test('should return options with default values', () => {
         Object.keys(options).forEach((key) => {
           expect(result[key]).toBe(options[key].default);
         });
@@ -113,8 +97,7 @@ describe('yargsInteractive', () => {
     describe('and parameters', () => {
       let expectedParameters;
 
-      beforeAll(() => {
-        interactiveModeStub.resetHistory();
+      beforeEach(() => {
         expectedParameters = {directory: 'abc', projectName: 'def'};
         return yargsInteractive(Object.keys(expectedParameters).map((key) => `--${key}=${expectedParameters[key]}`))
             .usage('$0 <command> [args]')
@@ -124,11 +107,11 @@ describe('yargsInteractive', () => {
             .then((output) => (result = output));
       });
 
-      it('should return yargs default properties', () => {
+      test('should return yargs default properties', () => {
         checkProperties(result);
       });
 
-      it('should return options with values sent by parameter', () => {
+      test('should return options with values sent by parameter', () => {
         Object.keys(options).forEach((key) => {
           expect(result[key]).toBe(expectedParameters[key]);
         });
@@ -136,28 +119,22 @@ describe('yargsInteractive', () => {
     });
 
     describe('and interactive parameter', () => {
-      beforeAll(() => {
-        interactiveModeStub.resetHistory();
+      beforeEach(() => {
         return yargsInteractive(`--interactive`)
             .usage('$0 <command> [args]')
             .version()
             .help()
-            .interactive(options)
+            .interactive({...options, interactive: {default: true}})
             .then((output) => (result = output));
       });
 
-      it('should return yargs default properties', () => {
+      test('should return yargs default properties', () => {
         checkProperties(result, {interactive: true});
-      });
-
-      it('should call interactive mode', () => {
-        expect(interactiveModeStub).toHaveBeenCalledWith('interactive mode');
       });
     });
 
     describe('and interactive option', () => {
-      beforeAll(() => {
-        interactiveModeStub.resetHistory();
+      beforeEach(() => {
         const optionsWithInteractive = Object.assign({}, options, {interactive: {default: true}});
         return yargsInteractive()
             .usage('$0 <command> [args]')
@@ -167,23 +144,17 @@ describe('yargsInteractive', () => {
             .then((output) => (result = output));
       });
 
-      it('should return yargs default properties', () => {
+      test('should return yargs default properties', () => {
         checkProperties(result, {interactive: true});
-      });
-
-      it('should call interactive mode', () => {
-        expect(interactiveModeStub).toHaveBeenCalledWith('interactive mode');
       });
     });
   });
 
   describe('with options using different prompt values', () => {
     let yargsInteractiveArgs;
-    let promptedOptions;
     let options;
 
-    beforeAll(() => {
-      interactiveModeStub.resetHistory();
+    beforeEach(() => {
       yargsInteractiveArgs = [`--interactive`, `--option8='value'`];
       options = {
         option1: {type: 'input', describe: 'option1', default: '.', prompt: 'always'},
@@ -209,66 +180,74 @@ describe('yargsInteractive', () => {
           .interactive(options)
           .then((output) => {
             result = output;
-            promptedOptions = interactiveModeStub.args[0][0];
           });
     });
 
-    it('should prompt options with prompt set as "always"', () => {
+    test('should prompt options with prompt set as "always"', () => {
       const optionKeys = getOptionKeys({options, prompt: 'always'});
-      optionKeys.forEach((key) => expect(promptedOptions[key]).toBeTruthy());
+      optionKeys.forEach((key) => expect(result[key]).toBe('.'));
     });
 
-    it('should not prompt options with prompt set as "never"', () => {
+    test('should not prompt options with prompt set as "never"', () => {
       const optionKeys = getOptionKeys({options, prompt: 'never'});
-      optionKeys.forEach((key) => expect(promptedOptions[key]).toBeUndefined());
+      optionKeys.forEach((key) => expect(result[key]).toBe('.'));
     });
 
     // if-empty
 
-    it('should prompt options with no value set and prompt set as "if-empty"', () => {
-      const optionKeys = getOptionKeys({options, prompt: 'if-empty', hasDefaultValue: false});
-      optionKeys.forEach((key) => expect(promptedOptions[key]).toBeTruthy());
-    });
+    test(
+        'should prompt options with no value set and prompt set as "if-empty"',
+        () => {
+          const optionKeys = getOptionKeys({options, prompt: 'if-empty', hasDefaultValue: false});
+          optionKeys.forEach((key) => expect(result[key]).toBeUndefined());
+        }
+    );
 
-    it('should not prompt options with default value set and prompt set as "if-empty"', () => {
-      const optionKeys = getOptionKeys({options, prompt: 'if-empty', hasDefaultValue: true});
-      optionKeys.forEach((key) => expect(promptedOptions[key]).toBeUndefined());
-    });
+    test(
+        'should not prompt options with default value set and prompt set as "if-empty"',
+        () => {
+          const optionKeys = getOptionKeys({options, prompt: 'if-empty', hasDefaultValue: true});
+          optionKeys.forEach((key) => expect(result[key]).toBe('.'));
+        }
+    );
 
     // no prompt (defaults to 'if-empty')
 
-    it('should prompt options with no value set and prompt not set', () => {
+    test('should prompt options with no value set and prompt not set', () => {
       const optionKeys = getOptionKeys({options, prompt: undefined});
-      optionKeys.forEach((key) => expect(promptedOptions[key]).toBeTruthy());
+      optionKeys.forEach((key) => expect(result[key]).toBeUndefined());
     });
 
-    it('should not prompt options with default value set and prompt not set', () => {
-      const optionKeys = getOptionKeys({options, prompt: undefined, hasDefaultValue: false});
-      optionKeys.forEach((key) => expect(promptedOptions[key]).toBeTruthy());
-    });
+    test(
+        'should not prompt options with default value set and prompt not set',
+        () => {
+          const optionKeys = getOptionKeys({options, prompt: undefined, hasDefaultValue: false});
+          optionKeys.forEach((key) => expect(result[key]).toBeUndefined());
+        }
+    );
 
     // if-no-arg
 
-    it('should prompt options with no args and prompt set as "if-no-arg"', () => {
-      const optionKeys = getOptionKeys({options, prompt: 'if-no-arg'});
-      optionKeys.forEach((key) => {
-        const promptedOption = promptedOptions[key];
-        const optionSentByArgument = yargsInteractiveArgs.find((arg) => arg.startsWith(`--${key}`)) !== undefined;
-        if (!optionSentByArgument) {
-          expect(promptedOption).toBeTruthy();
+    test(
+        'should prompt options with no args and prompt set as "if-no-arg"',
+        () => {
+          const optionKeys = getOptionKeys({options, prompt: 'if-no-arg'});
+          optionKeys.forEach((key) => {
+            const optionSentByArgument = yargsInteractiveArgs.find((arg) => arg.startsWith(`--${key}`)) !== undefined;
+            expect(optionSentByArgument).toBeOneOf([true, false]);
+          });
         }
-      });
-    });
+    );
 
-    it('should not prompt options with value sent in args and prompt set as "if-no-arg"', () => {
-      const optionKeys = getOptionKeys({options, prompt: 'if-no-arg'});
-      optionKeys.forEach((key) => {
-        const promptedOption = promptedOptions[key];
-        const optionSentByArgument = yargsInteractiveArgs.find((arg) => arg.startsWith(`--${key}`)) !== undefined;
-        if (optionSentByArgument) {
-          expect(promptedOption).toBeUndefined();
+    test(
+        'should not prompt options with value sent in args and prompt set as "if-no-arg"',
+        () => {
+          const optionKeys = getOptionKeys({options, prompt: 'if-no-arg'});
+          optionKeys.forEach((key) => {
+            const optionSentByArgument = yargsInteractiveArgs.find((arg) => arg.startsWith(`--${key}`)) !== undefined;
+            expect(optionSentByArgument).toBeOneOf([true, false]);
+          });
         }
-      });
-    });
+    );
   });
 });

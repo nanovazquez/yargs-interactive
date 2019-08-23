@@ -12,7 +12,7 @@ describe('fiter-object', () => {
       expectedResult = {};
     });
 
-    it('should return an empty element', () => {
+    test('should return an empty element', () => {
       expect(result).toMatchObject(expectedResult);
     });
   });
@@ -32,7 +32,7 @@ describe('fiter-object', () => {
         expectedResult = Object.assign({}, element);
       });
 
-      it('should return the same element', () => {
+      test('should return the same element', () => {
         expect(result).toMatchObject(expectedResult);
       });
     });
@@ -45,7 +45,7 @@ describe('fiter-object', () => {
         delete expectedResult.password;
       });
 
-      it('should return a filtered element', () => {
+      test('should return a filtered element', () => {
         expect(result).toMatchObject(expectedResult);
       });
     });

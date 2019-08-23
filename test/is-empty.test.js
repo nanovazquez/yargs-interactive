@@ -12,7 +12,7 @@ describe('is-empty', () => {
       expectedResult = true;
     });
 
-    it('should return true', () => {
+    test('should return true', () => {
       expect(result).toEqual(expectedResult);
     });
   });
@@ -24,7 +24,7 @@ describe('is-empty', () => {
       expectedResult = true;
     });
 
-    it('should return true', () => {
+    test('should return true', () => {
       expect(result).toEqual(expectedResult);
     });
   });
@@ -36,7 +36,7 @@ describe('is-empty', () => {
       expectedResult = true;
     });
 
-    it('should return true', () => {
+    test('should return true', () => {
       expect(result).toEqual(expectedResult);
     });
   });
@@ -48,7 +48,7 @@ describe('is-empty', () => {
       expectedResult = true;
     });
 
-    it('should return true', () => {
+    test('should return true', () => {
       expect(result).toEqual(expectedResult);
     });
   });
@@ -60,7 +60,7 @@ describe('is-empty', () => {
       expectedResult = false;
     });
 
-    it('should return false', () => {
+    test('should return false', () => {
       expect(result).toEqual(expectedResult);
     });
   });

@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const interactiveMode = require('./interactive-mode');
+const {interactiveMode} = require('./interactive-mode');
 const filterObject = require('./filter-object');
 const isEmpty = require('./is-empty');
 const isArgProvided = require('./is-args-provided');
