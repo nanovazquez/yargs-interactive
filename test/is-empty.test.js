@@ -1,4 +1,3 @@
-const assert = require('assert');
 const isEmpty = require('../src/is-empty');
 
 describe('is-empty', () => {
@@ -14,7 +13,7 @@ describe('is-empty', () => {
     });
 
     it('should return true', () => {
-      assert.equal(result, expectedResult);
+      expect(result).toEqual(expectedResult);
     });
   });
 
@@ -26,7 +25,7 @@ describe('is-empty', () => {
     });
 
     it('should return true', () => {
-      assert.equal(result, expectedResult);
+      expect(result).toEqual(expectedResult);
     });
   });
 
@@ -38,7 +37,7 @@ describe('is-empty', () => {
     });
 
     it('should return true', () => {
-      assert.equal(result, expectedResult);
+      expect(result).toEqual(expectedResult);
     });
   });
 
@@ -50,7 +49,7 @@ describe('is-empty', () => {
     });
 
     it('should return true', () => {
-      assert.equal(result, expectedResult);
+      expect(result).toEqual(expectedResult);
     });
   });
 
@@ -62,7 +61,7 @@ describe('is-empty', () => {
     });
 
     it('should return false', () => {
-      assert.equal(result, expectedResult);
+      expect(result).toEqual(expectedResult);
     });
   });
 });
