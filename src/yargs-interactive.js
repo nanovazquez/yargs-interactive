@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const {interactiveMode} = require('./interactive-mode');
+const interactiveMode = require('./interactive-mode');
 const filterObject = require('./filter-object');
 const isEmpty = require('./is-empty');
 const isArgProvided = require('./is-args-provided');
@@ -45,9 +45,7 @@ const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
     });
 
     // Check if we should get the values from the interactive mode
-    return argv.interactive
-      ? interactiveMode(interactiveOptions).then((result) => Object.assign({}, argv, result))
-      : Promise.resolve(argv);
+    return argv.interactive ? interactiveMode(interactiveOptions).then((result) => Object.assign({}, argv, result)) : Promise.resolve(argv);
   };
 
   return yargsConfig;
