@@ -1,4 +1,5 @@
 # Yargs Interactive
+
 [![Build Status](https://travis-ci.org/nanovazquez/yargs-interactive.svg?branch=master)](https://travis-ci.org/nanovazquez/yargs-interactive) [![Coverage Status](https://coveralls.io/repos/github/nanovazquez/yargs-interactive/badge.svg)](https://coveralls.io/github/nanovazquez/yargs-interactive) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![npm](https://img.shields.io/npm/v/yargs-interactive.svg?style=flat)](https://www.npmjs.com/package/yargs-interactive)
 [![npm](https://img.shields.io/npm/dw/yargs-interactive.svg)](https://www.npmjs.com/package/yargs-interactive)
 
@@ -21,28 +22,24 @@ Then, add this code in your CLI code to get all the arguments parsed:
 ```js
 #!/usr/bin/env node
 
-const yargsInteractive = require('yargs-interactive');
+const yargsInteractive = require("yargs-interactive");
 const options = {
-  name: { type: 'input', default: 'A robot', describe: 'Enter your name' },
-  likesPizza: { type: 'confirm', default: false, describe: 'Do you like pizza?' },
+  name: { type: "input", default: "A robot", describe: "Enter your name" },
+  likesPizza: { type: "confirm", default: false, describe: "Do you like pizza?" }
 };
 
 yargsInteractive()
-  .usage('$0 <command> [args]')
+  .usage("$0 <command> [args]")
   .interactive(options)
-  .then((result) => {
+  .then(result => {
     // Your business logic goes here.
     // Get the arguments from the result
     // e.g. myCli(result.name);
-      console.log(
-        `\nResult is:\n`
-        + `- Name: ${result.name}\n`
-        + `- Likes pizza: ${result.likesPizza}\n`
-      );
+    console.log(`\nResult is:\n` + `- Name: ${result.name}\n` + `- Likes pizza: ${result.likesPizza}\n`);
   });
 ```
 
-Now, by simply wrapping your CLI code with this tool, you'll get all the information you need from the user. For instance, save the previous snipped in a file named *my-cli.js* and run it in your terminal:
+Now, by simply wrapping your CLI code with this tool, you'll get all the information you need from the user. For instance, save the previous snipped in a file named _my-cli.js_ and run it in your terminal:
 
 ```
 ➜ node my-cli.js --interactive
@@ -55,36 +52,36 @@ Now, by simply wrapping your CLI code with this tool, you'll get all the informa
 ## Usage
 
 It supports the following use cases
-* [Prompt questions with default values (full-interactive)](#prompt-questions-with-default-values-full-interactive)
-* [Prompt just some questions (mixed mode)](#prompt-just-some-questions-mixed-mode)
-* [No prompt at all (ye olde yargs)](#no-prompt-at-all-ye-olde-yargs)
 
-### Prompt questions with default values (full-interactive)
+- [Prompt all questions](#prompt-questions-with-default-values-full-interactive)
+- [Prompt some questions (mixed mode)](#prompt-just-some-questions-mixed-mode)
+- [No prompt at all (ye olde yargs)](#no-prompt-at-all-ye-olde-yargs)
+
+### Prompt questions (full-interactive)
 
 **my-cli.js**
+
 ```js
-const yargsInteractive = require('yargs-interactive');
+const yargsInteractive = require("yargs-interactive");
 
 const options = {
   name: {
-    type: 'input',
-    default: 'nano',
-    describe: 'Enter your name'
+    type: "input",
+    describe: "Enter your name"
   },
   likesPizza: {
-    type: 'confirm',
-    default: false,
-    describe: 'Do you like pizza?'
-  },
+    type: "confirm",
+    describe: "Do you like pizza?"
+  }
 };
 
 yargsInteractive()
-  .usage('$0 <command> [args]')
+  .usage("$0 <command> [args]")
   .interactive(options)
-  .then((result) => {
+  .then(result => {
     // The tool will prompt questions and will output your answers.
     // TODO: Do something with the result (e.g result.name)
-    console.log(result)
+    console.log(result);
   });
 ```
 
@@ -122,39 +119,42 @@ And then simply call your CLI with no parameters.
 
 ### Options
 
-| Property   | Type         | Description                   |
-| ---------- | -------------| ----------------------------- |
-| type       |  string      | _(Required)_ The type of the option to prompt (e.g. `input`, `confirm`, etc.). **We provide all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).**|
-| describe   |  string      | _(Required)_ The message to display when prompting the option (e.g. `Do you like pizza?`) |
-| default    |  any         | The default value of the option. |
-| prompt     |  string      | _(Default is `if-empty`)_ Property to decide whether to prompt the option or not. Possible values: `always`, `never`, `if-no-arg` (prompts if the option was not sent via command line parameters) and `if-empty` (prompts if the value was not sent via command line parameters and it doesn't have a default property). |
+| Property | Type   | Description                                                                                                                                                                                                                                                                                                               |
+| -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type     | string | _(Required)_ The type of the option to prompt (e.g. `input`, `confirm`, etc.). **We provide all prompt types supported by [Inquirer](https://github.com/SBoudrias/Inquirer.js/#prompt-types).**                                                                                                                           |
+| describe | string | _(Required)_ The message to display when prompting the option (e.g. `Do you like pizza?`)                                                                                                                                                                                                                                 |
+| default  | any    | The default value of the option.                                                                                                                                                                                                                                                                                          |
+| prompt   | string | _(Default is `if-empty`)_ Property to decide whether to prompt the option or not. Possible values: `always`, `never`, `if-no-arg` (prompts if the option was not sent via command line parameters) and `if-empty` (prompts if the value was not sent via command line parameters and it doesn't have a default property). |
 
-### Prompt just some questions (mixed mode)
+### Prompt some questions (mixed mode)
 
-You can opt-out options from interactive mode by setting the `prompt` property to `never`. By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters or it doesn't have a default property. Setting to `if-no-arg` will only prompt the question if no argument is provided. Lastly, you can use `always` to always prompt the option.
+You can opt-out options from interactive mode by setting the `prompt` property to `never`. By default, its value is `if-empty`, prompting the question to the user if the value was not set via command line parameters, or if it doesn't have a default property. Setting it to `if-no-arg` will prompt the question if no argument is provided. Lastly, you can use `always` to _always prompt the option_.
 
 **my-cli.js**
+
 ```js
-const yargsInteractive = require('yargs-interactive');
+const yargsInteractive = require("yargs-interactive");
 
 const options = {
   name: {
-    // prompt property if not set defaults to 'if-empty'
-    type: 'input',
-    describe: 'Enter your name'
+    // prompt property, if not set, defaults to 'if-empty'
+    // In this case, it means the question will be prompted
+    // if it is not provided by args, as it doesn't have a default value.
+    type: "input",
+    describe: "Enter your name"
   },
   likesPizza: {
-    type: 'confirm',
+    type: "confirm",
     default: false,
-    describe: 'Do you like pizza?',
-    prompt: 'never' // because everyone likes pizza
-  },
+    describe: "Do you like pizza?",
+    prompt: "never" // because everyone likes pizza
+  }
 };
 
 yargsInteractive()
-  .usage('$0 <command> [args]')
+  .usage("$0 <command> [args]")
   .interactive(options)
-  .then((result) => {
+  .then(result => {
     // The tool will prompt questions output the answers.
     // You can opt-out options by using `prompt: 'never'`. For these properties, it
     // will use the value sent by parameter (--likesPizza) or the default value.
@@ -164,6 +164,7 @@ yargsInteractive()
 ```
 
 **Usage in terminal**
+
 ```
 ➜ node my-cli.js --interactive
 ```
@@ -173,26 +174,27 @@ Notice that if you enter `node my-cli.js --name='Johh' --interactive` name won't
 ### No prompt at all (ye olde yargs)
 
 **my-cli.js**
+
 ```js
-const yargsInteractive = require('yargs-interactive');
+const yargsInteractive = require("yargs-interactive");
 
 const options = {
   name: {
-    type: 'input',
-    default: 'nano',
-    describe: 'Enter your name'
+    type: "input",
+    default: "nano",
+    describe: "Enter your name"
   },
   likesPizza: {
-    type: 'confirm',
+    type: "confirm",
     default: false,
-    describe: 'Do you like pizza?'
-  },
+    describe: "Do you like pizza?"
+  }
 };
 
 yargsInteractive()
-  .usage('$0 <command> [args]')
+  .usage("$0 <command> [args]")
   .interactive(options)
-  .then((result) => {
+  .then(result => {
     // The tool will output the values set via parameters or
     // the default value (if not provided).
     // TODO: Do something with the result (e.g result.name)
@@ -201,6 +203,7 @@ yargsInteractive()
 ```
 
 **Usage in terminal**
+
 ```
 ➜ node my-cli.js --name='Johh' --likesPizza
 ```
