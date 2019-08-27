@@ -5,7 +5,7 @@ const isEmpty = require('./is-empty');
 const isArgProvided = require('./is-args-provided');
 
 // Set up yargs options
-let yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
+const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
   const yargsConfig = yargs(processArgs, cwd);
 
   // Add interactive functionality
@@ -45,9 +45,7 @@ let yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
     });
 
     // Check if we should get the values from the interactive mode
-    return argv.interactive
-      ? interactiveMode(interactiveOptions).then((result) => Object.assign({}, argv, result))
-      : Promise.resolve(argv);
+    return argv.interactive ? interactiveMode(interactiveOptions).then((result) => Object.assign({}, argv, result)) : Promise.resolve(argv);
   };
 
   return yargsConfig;

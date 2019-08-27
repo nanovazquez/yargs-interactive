@@ -1,12 +1,27 @@
 {
-  "extends": ["eslint:recommended", "google"],
+  "extends": [
+    "eslint:recommended",
+    "google"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "jest": true
   },
   "rules": {
-    "max-len": [2, 200],
+    "max-len": [
+      "error",
+      200
+    ],
     "require-jsdoc": "off",
     "no-console": "off",
     "comma-dangle": "off"

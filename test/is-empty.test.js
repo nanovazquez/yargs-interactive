@@ -1,4 +1,3 @@
-const assert = require('assert');
 const isEmpty = require('../src/is-empty');
 
 describe('is-empty', () => {
@@ -7,62 +6,62 @@ describe('is-empty', () => {
   let expectedResult;
 
   describe('with no element', () => {
-    before(() => {
+    beforeAll(() => {
       element = undefined;
       result = isEmpty(element);
       expectedResult = true;
     });
 
-    it('should return true', () => {
-      assert.equal(result, expectedResult);
+    test('should return true', () => {
+      expect(result).toEqual(expectedResult);
     });
   });
 
   describe('with null element', () => {
-    before(() => {
+    beforeAll(() => {
       element = null;
       result = isEmpty(element);
       expectedResult = true;
     });
 
-    it('should return true', () => {
-      assert.equal(result, expectedResult);
+    test('should return true', () => {
+      expect(result).toEqual(expectedResult);
     });
   });
 
   describe('with empty string', () => {
-    before(() => {
+    beforeAll(() => {
       element = '';
       result = isEmpty(element);
       expectedResult = true;
     });
 
-    it('should return true', () => {
-      assert.equal(result, expectedResult);
+    test('should return true', () => {
+      expect(result).toEqual(expectedResult);
     });
   });
 
   describe('with empty array', () => {
-    before(() => {
+    beforeAll(() => {
       element = [];
       result = isEmpty(element);
       expectedResult = true;
     });
 
-    it('should return true', () => {
-      assert.equal(result, expectedResult);
+    test('should return true', () => {
+      expect(result).toEqual(expectedResult);
     });
   });
 
   describe('with string element', () => {
-    before(() => {
+    beforeAll(() => {
       element = 'element';
       result = isEmpty(element);
       expectedResult = false;
     });
 
-    it('should return false', () => {
-      assert.equal(result, expectedResult);
+    test('should return false', () => {
+      expect(result).toEqual(expectedResult);
     });
   });
 });

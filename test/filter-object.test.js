@@ -1,4 +1,3 @@
-const assert = require('assert');
 const filterObject = require('../src/filter-object');
 
 describe('fiter-object', () => {
@@ -8,18 +7,18 @@ describe('fiter-object', () => {
   let expectedResult;
 
   describe('with no element', () => {
-    before(() => {
+    beforeAll(() => {
       result = filterObject();
       expectedResult = {};
     });
 
-    it('should return an empty element', () => {
-      assert.deepEqual(result, expectedResult);
+    test('should return an empty element', () => {
+      expect(result).toMatchObject(expectedResult);
     });
   });
 
   describe('with element', () => {
-    before(() => {
+    beforeAll(() => {
       element = {
         name: {hello: 'world', prompt: true},
         email: {hello: 'world', prompt: true},
@@ -28,26 +27,26 @@ describe('fiter-object', () => {
     });
 
     describe('and no condition', () => {
-      before(() => {
+      beforeAll(() => {
         result = filterObject(element);
         expectedResult = Object.assign({}, element);
       });
 
-      it('should return the same element', () => {
-        assert.deepEqual(result, expectedResult);
+      test('should return the same element', () => {
+        expect(result).toMatchObject(expectedResult);
       });
     });
 
     describe('and condition', () => {
-      before(() => {
+      beforeAll(() => {
         condition = (item) => item.prompt !== false;
         result = filterObject(element, condition);
         expectedResult = Object.assign({}, element);
         delete expectedResult.password;
       });
 
-      it('should return a filtered element', () => {
-        assert.deepEqual(result, expectedResult);
+      test('should return a filtered element', () => {
+        expect(result).toMatchObject(expectedResult);
       });
     });
   });
