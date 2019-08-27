@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const {interactiveMode} = require('../src/interactive-mode');
+const interactiveMode = require('../src/interactive-mode');
 
 describe('interactive-mode', () => {
   let inquirerCreatePromptModuleStub;

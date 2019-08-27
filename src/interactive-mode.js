@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
  * @param {object} values The values to configure the prompt
  * @return {object} A promise that, when fullfilled, will contain answer of the questions prompted to the user
  */
-module.exports = (values) => {
+module.exports = (values = {}) => {
   const prompt = inquirer.createPromptModule();
   const questions = Object.keys(values).map((key) => {
     const value = values[key];
