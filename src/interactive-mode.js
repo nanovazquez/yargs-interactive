@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 /**
  * Initiate an interactive prompt to get values from the user.
  * @param {object} values The values to configure the prompt
+ * @param {object} inquirerOptions Payload encapsulating runtime configuration options for inquirer, mainly "allowInquirerPlugins", which enables support of inquirer plugins
  * @return {object} A promise that, when fullfilled, will contain answer of the questions prompted to the user
  */
 module.exports = (values = {}, inquirerOptions = {}) => {
