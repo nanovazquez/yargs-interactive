@@ -44,8 +44,13 @@ const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
       return isEmpty(argv[key]) && isEmpty(item.default);
     });
 
+    // Assess self-contained mode -- Wheteher to create a self contained inquirer module or allow other libraries to be usable.
+    const inquirerOptions = {
+      allowInquirerPlugins: !!(options.interactive && options.interactive.allowInquirerPlugins)
+    };
+
     // Check if we should get the values from the interactive mode
-    return argv.interactive ? interactiveMode(interactiveOptions).then((result) => Object.assign({}, argv, result)) : Promise.resolve(argv);
+    return argv.interactive ? interactiveMode(interactiveOptions, inquirerOptions).then((result) => Object.assign({}, argv, result)) : Promise.resolve(argv);
   };
 
   return yargsConfig;
