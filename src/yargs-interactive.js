@@ -13,7 +13,8 @@ const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
     // Merge options sent by parameters with interactive option
     const mergedOptions = Object.assign({}, options, {
       interactive: {
-        default: !!(options.interactive && options.interactive.default),
+        type: 'confirm',
+        default: !!(options.interactive && options.interactive.default) || !!yargs.argv.interactive,
         prompt: 'never'
       }
     });
