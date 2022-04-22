@@ -3,15 +3,28 @@ const interactiveMode = require('./interactive-mode');
 const filterObject = require('./filter-object');
 const isEmpty = require('./is-empty');
 const isArgProvided = require('./is-args-provided');
+const {argv} = require('process');
 
 // Set up yargs options
 const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
   const yargsConfig = yargs(processArgs, cwd);
 
+  let commandOptions = {};
+
+  yargsConfig.interactiveOptions = (options) => {
+    if (typeof options === 'function') {
+      options = options(commandOptions);
+    }
+
+    commandOptions = Object.assign({}, commandOptions, options);
+
+    return argv;
+  };
+
   // Add interactive functionality
   yargsConfig.interactive = (options = {}) => {
     // Merge options sent by parameters with interactive option
-    const mergedOptions = Object.assign({}, options, {
+    const mergedOptions = Object.assign(commandOptions, options, {
       interactive: {
         type: 'confirm',
         default: !!(options.interactive && options.interactive.default) || !!yargs.argv.interactive,
