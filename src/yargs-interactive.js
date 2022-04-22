@@ -3,7 +3,6 @@ const interactiveMode = require('./interactive-mode');
 const filterObject = require('./filter-object');
 const isEmpty = require('./is-empty');
 const isArgProvided = require('./is-args-provided');
-const {argv} = require('process');
 
 // Set up yargs options
 const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
@@ -18,7 +17,7 @@ const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
 
     commandOptions = Object.assign({}, commandOptions, options);
 
-    return argv;
+    return yargsConfig;
   };
 
   // Add interactive functionality
