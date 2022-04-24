@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint src test --fix",
     "test": "jest --collectCoverage",
-    "coveralls": "jest --collectCoverage && cat ./coverage/lcov.info | coveralls",
+    "test:coveralls": "jest --collectCoverage && cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release"
   },
   "repository": {
