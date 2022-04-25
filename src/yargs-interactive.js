@@ -8,10 +8,22 @@ const isArgProvided = require('./is-args-provided');
 const yargsInteractive = (processArgs = process.argv.slice(2), cwd) => {
   const yargsConfig = yargs(processArgs, cwd);
 
+  let commandOptions = {};
+
+  yargsConfig.interactiveOptions = (options) => {
+    if (typeof options === 'function') {
+      options = options(commandOptions);
+    }
+
+    commandOptions = Object.assign({}, commandOptions, options);
+
+    return yargsConfig;
+  };
+
   // Add interactive functionality
   yargsConfig.interactive = (options = {}) => {
     // Merge options sent by parameters with interactive option
-    const mergedOptions = Object.assign({}, options, {
+    const mergedOptions = Object.assign(commandOptions, options, {
       interactive: {
         type: 'confirm',
         default: !!(options.interactive && options.interactive.default) || !!yargs.argv.interactive,

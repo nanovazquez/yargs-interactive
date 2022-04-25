@@ -53,11 +53,12 @@ Now, by simply wrapping your CLI code with this tool, you'll get all the informa
 
 It supports the following use cases
 
-- [Prompt all questions](#prompt-questions-with-default-values-full-interactive)
-- [Prompt some questions (mixed mode)](#prompt-just-some-questions-mixed-mode)
+- [Prompt all questions (full-interactive)](#prompt-all-questions-full-interactive)
+- [Prompt some questions (mixed mode)](#prompt-some-questions-mixed-mode)
 - [No prompt at all (ye olde yargs)](#no-prompt-at-all-ye-olde-yargs)
+- [Nested interactive questions](#nested-interactive-questions)
 
-### Prompt questions (full-interactive)
+### Prompt all questions (full-interactive)
 
 **my-cli.js**
 
@@ -206,4 +207,42 @@ yargsInteractive()
 
 ```
 ➜ node my-cli.js --name='Johh' --likesPizza
+```
+
+### Nested Interactive Questions
+
+```js
+/* my-cli.js */
+const globalOptions = {
+  name: {
+    type: 'input',
+    default: 'nano',
+    describe: 'Enter your name',
+  },
+};
+
+yargsInteractive()
+  .usage("$0 <command> [args]")
+  .interactiveOptions(globalOptions)
+  .commandDir('./commands');
+```
+
+```js
+/* ./commands/command.js */
+const options = {
+  likesPizza: {
+    type: 'confirm',
+    default: false,
+    describe: 'Do you like pizza?',
+  },
+};
+
+module.exports = {
+  command = 'order',
+  description = 'Order some food',
+  builder: (yargs) => yargs
+    .interactive(options)
+    .then(opts => {
+      // ...
+    });
 ```
