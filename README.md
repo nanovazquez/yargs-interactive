@@ -207,3 +207,26 @@ yargsInteractive()
 ```
 ➜ node my-cli.js --name='Johh' --likesPizza
 ```
+
+### Inquirer plugins support
+
+Inquirer plugins support must be opt-in by setting `allowInquirerPlugins` to `true` in the interactive mode options:
+
+```js
+const options = {
+  interactive: {
+    allowInquirerPlugins: true,
+    default: true,
+  },
+  ...
+};
+
+yargsInteractive()
+  .usage('$0 <command> [args]')
+  .interactive(options)
+  .then((result) => {
+    // The tool will prompt questions and will output your answers.
+    // TODO: Do something with the result (e.g result.name)
+    console.log(result)
+  });
+```
